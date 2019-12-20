@@ -1,0 +1,20 @@
+{
+  "name": "@sovpro/promise-connect",
+  "version": "1.0.0",
+  "description": "Promise a connected socket",
+  "main": "promise-connect.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sovpro/promise-connect.git"
+  },
+  "keywords": [
+    "promise",
+    "connect",
+    "socket"
+  ],
+  "author": "sovpro <its.so@outlook.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@sovpro/ocafe": "^1.0.2"
+  }
+}
