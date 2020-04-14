@@ -1,9 +1,9 @@
-import { createConnection } from 'net'
+import { createConnection, Socket } from 'net'
 import ocafe from '../../ocafe'
 
 export = promiseConnect
 
-function promiseConnect (...args) {
+function promiseConnect (...args): Promise<Socket> {
   const max_arg_idx = args.length - 1
   let userOnceConnected = () => {}
   let connect_timeout = 0
