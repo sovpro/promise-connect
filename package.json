@@ -1,8 +1,8 @@
 {
   "name": "@sovpro/promise-connect",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Promise a connected socket",
-  "main": "promise-connect.js",
+  "main": "dist/promise-connect.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sovpro/promise-connect.git"
@@ -16,5 +16,15 @@
   "license": "MIT",
   "dependencies": {
     "@sovpro/ocafe": "^1.0.2"
-  }
+  },
+  "devDependencies": {
+    "@types/node": "^13.11.1"
+  },
+  "engines": {
+    "node": ">= 8"
+  },
+  "files": [
+    "dist/"
+  ],
+  "types": "dist/promise-connect.d.ts"
 }

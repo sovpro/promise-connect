@@ -1,16 +1,16 @@
-const net = require ('net')
-const ocafe = require ('@sovpro/ocafe')
+import { createConnection } from 'net'
+import ocafe from '../../ocafe'
 
-module.exports = promiseConnect
+export = promiseConnect
 
 function promiseConnect (...args) {
-  let max_arg_idx = args.length - 1
+  const max_arg_idx = args.length - 1
   let userOnceConnected = () => {}
   let connect_timeout = 0
-  let first_arg = args[0]
+  const first_arg = args[0]
 
   if (typeof args[max_arg_idx] === 'function') {
-    ; [userOnceConnected] = args.splice (max_arg_idx, 1)
+    userOnceConnected = args.splice (max_arg_idx, 1)[0]
   }
 
   if (typeof first_arg === 'object' &&
@@ -19,30 +19,31 @@ function promiseConnect (...args) {
     connect_timeout = Math.max (0, +(first_arg.connectTimeout)) || 0
   }
 
-  const connect = (resolve, reject) => {
-    let socket ;
-    let cancel ;
-    let timer = connect_timeout && setTimeout (
+  function connect (resolve, reject) {
+    var socket ;
+    var cancel ;
+    var timer = connect_timeout && setTimeout (
       () => {
         try {
           socket.destroy ()
           cancel ()
         }
-        catch { ; }
+        finally  {
           reject (new Error ('Connect timeout'))
         }
+      }
       , connect_timeout
     )
 
     try {
-      socket = net.createConnection.apply (net, args)
+      socket = createConnection.apply (null, args)
       cancel = ocafe ( socket
         , 'connect' , () => {
             clearTimeout (timer)
             resolve (socket)
             setImmediate (userOnceConnected)
           }
-        , 'error'   , err => {
+        , 'error'   , (err) => {
             clearTimeout (timer)
             reject (err)
           }
@@ -50,8 +51,7 @@ function promiseConnect (...args) {
     }
     catch (err) {
       try { cancel () }
-      catch { ; }
-      reject (err)
+      finally { reject (err) }
     }
 
   }
