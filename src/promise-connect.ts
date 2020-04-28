@@ -1,5 +1,5 @@
 import { createConnection, Socket } from 'net'
-import ocafe from '../../ocafe'
+import ocafe from '@sovpro/ocafe'
 
 export = promiseConnect
 
